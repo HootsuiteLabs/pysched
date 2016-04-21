@@ -7,7 +7,6 @@ import calendar
 # Important facts about UTC datetime covertions:
 # https://stackoverflow.com/questions/5067218/get-utc-timestamp-in-python-with-datetime
 # =====================================================================================
-
 # ==================================
 # Utility methods
 # ==================================

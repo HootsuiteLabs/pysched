@@ -3,9 +3,11 @@ Scheduling helper. Find the next available time slot given a set of sheduled ite
 
 ## Usage
 ```
-get_schedule_date_time(schedule, settings)
+get_schedule_date_time(schedule, settings, datetime_field_name)
 # 2016-04-21 09:00:00
 ```
+- See conventions below for the expected structure of `schedule` and `settings`
+- `datestamp_field_name` is the object property name (within the current schedule object shown below) that contains the shceduled UTC datetime for existing scheduled items.
 
 ## Conventions
 1.- All dates are expected to be UTC

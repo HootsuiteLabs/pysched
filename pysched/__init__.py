@@ -60,7 +60,7 @@ def scheduled_time_is_available(date_time, slot, datestamp_field):
 			return False
 	return True
 
-def get_next_time(date, current_schedule, schedule_settings):
+def get_next_time(date, current_schedule, schedule_settings, datestamp_field):
 	""" all dates are expected to be UTC """
 	now = datetime.utcnow()
 	# at this point we assume that 'date' has available spots
@@ -82,7 +82,7 @@ def get_next_time(date, current_schedule, schedule_settings):
 	next_time = date + timedelta(minutes=delta)
 	while not found:
 		print 'trying: ' + str(next_time)
-		if scheduled_time_is_available(next_time, slot, 'scheduled_on') and next_time.hour >= schedule_settings['fromHour'] and next_time.hour <= schedule_settings['toHour'] and next_time > now:
+		if scheduled_time_is_available(next_time, slot, datestamp_field) and next_time.hour >= schedule_settings['fromHour'] and next_time.hour <= schedule_settings['toHour'] and next_time > now:
 			print 'found it!' 
 			found = True
 		else:
@@ -92,13 +92,13 @@ def get_next_time(date, current_schedule, schedule_settings):
 # ==================================
 # Scheduler
 # ==================================
-def get_schedule_date_time(current_schedule, schedule_settings):
+def get_schedule_date_time(current_schedule, schedule_settings, datestamp_field):
 	""" all dates are expected to be UTC """
 	now = datetime.utcnow()
 	date = datetime(now.year, now.month, now.day)
 	schedule_date_time = None
 	while schedule_date_time is None:
 		if is_day_available(date, current_schedule, schedule_settings):
-			schedule_date_time = get_next_time(date, current_schedule, schedule_settings)
+			schedule_date_time = get_next_time(date, current_schedule, schedule_settings, datestamp_field)
 		date = date + timedelta(days=1)
 	return schedule_date_time
